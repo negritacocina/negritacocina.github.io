@@ -112,12 +112,12 @@ nav .logo img {
     display: flex;
     margin: auto;
     padding-left: 0;
+    list-style: none;
 }
 
 #redes li {
     display: flex;
     margin: auto;
-    padding: auto;
 }
 
 .red {
@@ -217,6 +217,7 @@ footer a:hover {
         flex-direction: column;
         margin: auto;
         padding: auto;
+        list-style: none;
     }
 
     #redes li {
