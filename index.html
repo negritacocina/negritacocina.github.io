@@ -7,6 +7,7 @@
     <title>NEGRITA COCINA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="img/NegritaCocina-LogoNegro.png">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -30,7 +31,7 @@
     <!-- Sección de Comidas -->
     <section id="comidas" class="comidas">
         <h1>Mi propuesta</h1>
-        <div class="comida">
+        <div id="tapeo_negrita_para_4_personas" class="comida">
             <div class="imagen">
                 <img src="img/comidas/tapeo_negrita_para_4_personas.jpeg" alt="tapeo_negrita_para_4_personas">
             </div>
@@ -61,9 +62,14 @@
                     </li>
                 </ul>
                 </p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('tapeo_negrita_para_4_personas')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('tapeo_negrita_para_4_personas')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="falafel_garbanzos" class="comida">
             <div class="imagen">
                 <img src="img/comidas/falafel_garbanzos.png" alt="falafel_garbanzos">
             </div>
@@ -73,9 +79,14 @@
                     especias, posteriormente
                     fritas que habitualmente se sirven en pan de pita, acompañados de diferentes salsas como la salsa de
                     yogurt o tahini.</p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('falafel_garbanzos')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('falafel_garbanzos')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="tabule" class="comida">
             <div class="imagen">
                 <img src="img/comidas/tabule.jpeg" alt="tabule">
             </div>
@@ -84,9 +95,14 @@
                 <p>Es quizás la ensalada más conocida dentro de la comida árabe. Tiene ingredientes muy habituales y es
                     una ensalada muy
                     refrescante y ligera, llena de sabor.</p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('tabule')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('tabule')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="hummus_garbanzos" class="comida">
             <div class="imagen">
                 <img src="img/comidas/hummus_garbanzos.png" alt="hummus_garbanzos">
             </div>
@@ -95,9 +111,14 @@
                 <p>Es difícil encontrarse con alguien a quien no le guste el hummus y es que, su sabor suave, delicado y
                     su textura sedosalo hacen irresistible. Ideal para dipear con pan árabe o con unos crudités de tus
                     verduras favoritas.</p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('hummus_garbanzos')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('hummus_garbanzos')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="kofte_pollo" class="comida">
             <div class="imagen">
                 <img src="img/comidas/kofte_pollo.jpeg" alt="kofte_pollo">
             </div>
@@ -106,9 +127,14 @@
                 <p>Es un plato de pollo al horno con especias. La carne de pollo se macera con hierbas, especias y
                     limón, y se cocina al horno en forma de brocheta. ¡Una fiesta de sabor que te remontará al Líbano!
                 </p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('kofte_pollo')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('kofte_pollo')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="baba_ganoush" class="comida">
             <div class="imagen">
                 <img src="img/comidas/baba_ganoush_berenjena.jpeg" alt="baba_ganoush">
             </div>
@@ -118,9 +144,14 @@
                     suele comer con pan de pita y es un delicioso dip que se puede disfrutar como aperitivo, snack o
                     entrante. Este plato es una alternativa al popular hummus, pero en lugar de garbanzos, utiliza
                     berenjenas como ingrediente principal.</p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('baba_ganoush')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('baba_ganoush')">+</button>
+                </div>
             </div>
         </div>
-        <div class="comida">
+        <div id="pan_arabe" class="comida">
             <div class="imagen">
                 <img src="img/comidas/pan_arabe.jpeg" alt="pan_arabe">
             </div>
@@ -129,6 +160,11 @@
                 <p>Es un pan redondo y plano que se originó en el Medio Oriente. Ideal para rellenarlo con las opciones
                     de Negrita Cocina.
                 </p>
+                <div class="item-interaction-container">
+                    <button onclick="quitar('pan_arabe')">-</button>
+                    <p class="cant">0</p>
+                    <button onclick="agregar('pan_arabe')">+</button>
+                </div>
             </div>
         </div>
     </section>
@@ -172,6 +208,14 @@
     <footer>
         <p>Derechos Reservados &copy; 2024 Negrita Cocina</p>
     </footer>
+
+    <div id="boton-reset" class="boton-reset">
+        <button onclick="resetearPedido()">Vaciar<br>pedido</button>
+    </div>
+
+    <div id="boton-pedido" class="boton-pedido">
+        <button onclick="hacerPedido()">Pedir por WhatsApp</button>
+    </div>
 
 </body>
 
