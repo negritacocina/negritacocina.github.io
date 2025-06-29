@@ -2,221 +2,48 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEGRITA COCINA</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="img/NegritaCocina-LogoNegro.png">
-    <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>negrita cocina</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-
-    <!-- Barra de Navegación -->
-    <nav>
-        <div class="logo">
-            <img src="img/NegritaCocina-LogoBlanco.png" alt="Logo de Negrita Cocina">
-        </div>
-        <div class="secciones">
-            <a href="#acerca">Conoceme</a>
-            <a href="#redes">Contactame</a>
-        </div>
-    </nav>
-
-    <!-- Sección Principal -->
-    <section class="principal">
-        <img src="img/cocina_con_una_pizca_de_amor.png" alt="cocina_con_una_pizca_de_amor">
-    </section>
-
-    <!-- Sección de Comidas -->
-    <section id="comidas" class="comidas">
-        <h1>Mi propuesta</h1>
-        <div id="tapeo_negrita_para_4_personas" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/tapeo_negrita_para_4_personas.jpeg" alt="tapeo_negrita_para_4_personas">
+  <div class="container py-4">
+    <h1 class="mb-4 text-center">negrita cocina</h1>
+    <div id="comidas" class="row g-4"></div>
+  </div>
+  <script>
+    // Leer el CSV localmente usando fetch
+    fetch('menu.csv')
+      .then(response => response.text())
+      .then(text => {
+        const lines = text.trim().split('\n');
+        const headers = lines[0].split(',');
+        const comidas = lines.slice(1).map(line => {
+          const values = line.split(',');
+          let obj = {};
+          headers.forEach((h, i) => obj[h.trim()] = values[i] ? values[i].trim() : '');
+          return obj;
+        });
+        document.getElementById('comidas').innerHTML = comidas.map(comida => `
+          <div class="col-md-4">
+            <div class="card h-100">
+              <img src="${comida['Imagen (URL)']}" class="card-img-top" alt="${comida['Título']}" style="object-fit:cover; height:220px;">
+              <div class="card-body">
+                <h5 class="card-title">${comida['Título']}</h5>
+                <p class="card-text">${comida['Descripción']}</p>
+                <p class="card-text"><strong>Precio:</strong> ${comida['Precio']}</p>
+                <p class="card-text"><strong>Stock:</strong> ${comida['Stock']}</p>
+              </div>
             </div>
-            <div class="info">
-                <h2>Tapeo Negrita ~ Para 4 personas</h2>
-                <p>El tapeo va a contener:
-                <ul>
-                    <li>
-                        <p>Hummus 200gr</p>
-                    </li>
-                    <li>
-                        <p>Baba Gaboush 100 gr</p>
-                    </li>
-                    <li>
-                        <p>Falafel 6 unidades</p>
-                    </li>
-                    <li>
-                        <p>Kofté de pollo 6 unidades (acompañados por zanahorias asadas)</p>
-                    </li>
-                    <li>
-                        <p>Tabule 400 gr</p>
-                    </li>
-                    <li>
-                        <p>Pan pita 4 unidades pollo 6 unidades (acompañados por zanahorias asadas)</p>
-                    </li>
-                    <li>
-                        <p>Pan pita (árabe) 4 unidades</p>
-                    </li>
-                </ul>
-                </p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('tapeo_negrita_para_4_personas')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('tapeo_negrita_para_4_personas')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="falafel_garbanzos" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/falafel_garbanzos.png" alt="falafel_garbanzos">
-            </div>
-            <div class="infoizq">
-                <h2>Falafel</h2>
-                <p>Es un auténtico plato árabe que consiste en unas deliciosas bolas de garbanzos triturados con
-                    especias, posteriormente
-                    fritas que habitualmente se sirven en pan de pita, acompañados de diferentes salsas como la salsa de
-                    yogurt o tahini.</p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('falafel_garbanzos')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('falafel_garbanzos')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="tabule" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/tabule.jpeg" alt="tabule">
-            </div>
-            <div class="info">
-                <h2>Tabule</h2>
-                <p>Es quizás la ensalada más conocida dentro de la comida árabe. Tiene ingredientes muy habituales y es
-                    una ensalada muy
-                    refrescante y ligera, llena de sabor.</p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('tabule')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('tabule')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="hummus_garbanzos" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/hummus_garbanzos.png" alt="hummus_garbanzos">
-            </div>
-            <div class="infoizq">
-                <h2>Hummus de garbanzos</h2>
-                <p>Es difícil encontrarse con alguien a quien no le guste el hummus y es que, su sabor suave, delicado y
-                    su textura sedosalo hacen irresistible. Ideal para dipear con pan árabe o con unos crudités de tus
-                    verduras favoritas.</p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('hummus_garbanzos')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('hummus_garbanzos')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="kofte_pollo" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/kofte_pollo.jpeg" alt="kofte_pollo">
-            </div>
-            <div class="info">
-                <h2>Kofté de Pollo</h2>
-                <p>Es un plato de pollo al horno con especias. La carne de pollo se macera con hierbas, especias y
-                    limón, y se cocina al horno en forma de brocheta. ¡Una fiesta de sabor que te remontará al Líbano!
-                </p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('kofte_pollo')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('kofte_pollo')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="baba_ganoush" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/baba_ganoush_berenjena.jpeg" alt="baba_ganoush">
-            </div>
-            <div class="infoizq">
-                <h2>Baba Ganoush</h2>
-                <p>El Baba Ganoush es una pasta a base de puré de berenjena típica de la cocina árabe y mediterránea. Se
-                    suele comer con pan de pita y es un delicioso dip que se puede disfrutar como aperitivo, snack o
-                    entrante. Este plato es una alternativa al popular hummus, pero en lugar de garbanzos, utiliza
-                    berenjenas como ingrediente principal.</p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('baba_ganoush')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('baba_ganoush')">+</button>
-                </div>
-            </div>
-        </div>
-        <div id="pan_arabe" class="comida">
-            <div class="imagen">
-                <img src="img/comidas/pan_arabe.jpeg" alt="pan_arabe">
-            </div>
-            <div class="info">
-                <h2>Pan Pita o Árabe</h2>
-                <p>Es un pan redondo y plano que se originó en el Medio Oriente. Ideal para rellenarlo con las opciones
-                    de Negrita Cocina.
-                </p>
-                <div class="item-interaction-container">
-                    <button onclick="quitar('pan_arabe')">-</button>
-                    <p class="cant">0</p>
-                    <button onclick="agregar('pan_arabe')">+</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Acerca de Nosotros -->
-    <section id="acerca" class="acerca">
-        <h2>Conocé a Negrita Cocina</h2>
-        <p>Hola, soy Cele Primitivo, y les quiero dar la bienvenida a Negrita Cocina.</p>
-        <p>Vengo de familia libanesa y siempre fue mi anhelo tenerlos cerca y más si es a través de la comida.</p>
-        <p>Hace mucho vengo pensando en este emprendimiento, siempre cociné para agasajar a mi familia/amigos pero hoy
-            me animo a dar un paso más y acompañar la mesa y encuentros de quienes se animen a probar mi propuesta.
-        </p>
-        <p>
-            🤍
-        </p>
-    </section>
-
-    <!-- Sección de Redes Sociales -->
-    <section id="redes" class="redes">
-        <ul>
-            <li>
-                <div class="red">
-                    <div class="img-container">
-                        <img class="img-redes" src="img/wsp_logo.png" alt="Whatsapp">
-                    </div>
-                    <a href="https://wa.me/5492241506823" class="link-redes">¡Hacé click y escribime!</a>
-                </div>
-            </li>
-            <li>
-                <div class="red">
-                    <div class="img-container">
-                        <img class="img-redes" src="img/instagram_logo.png" alt="Instagram">
-                    </div>
-                    <a href="https://www.instagram.com/negrita_cocina" class="link-redes">¡Seguime en Instagram!</a>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>Derechos Reservados &copy; 2024 Negrita Cocina</p>
-    </footer>
-
-    <div id="boton-reset" class="boton-reset">
-        <button onclick="resetearPedido()">Vaciar<br>pedido</button>
-    </div>
-
-    <div id="boton-pedido" class="boton-pedido">
-        <button onclick="hacerPedido()">Pedir por WhatsApp</button>
-    </div>
-
+          </div>
+        `).join('');
+      })
+      .catch(err => {
+        document.getElementById('comidas').innerHTML = '<div class="alert alert-danger">No se pudo cargar el menú.</div>';
+      });
+  </script>
 </body>
 
 </html>
