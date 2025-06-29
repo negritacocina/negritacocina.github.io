@@ -1,0 +1,26 @@
+name: Actualizar menú automáticamente
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # Todos los días a las 14:00 Argentina (UTC-3)
+  workflow_dispatch:
+
+jobs:
+  actualizar-menu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+      - name: Descargar menú actualizado
+        run: bash ./actualizar_menu.sh
+      - name: Configurar usuario git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Hacer commit si hay cambios
+        run: |
+          git add ./menu.csv
+          git diff --cached --quiet || git commit -m "Actualizar menú automáticamente"
+      - name: Hacer push
+        if: success()
+        run: git push
