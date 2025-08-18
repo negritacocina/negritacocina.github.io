@@ -88,6 +88,7 @@ header {
 #whatsapp-btn, #cart-btn {
   position: fixed;
   right: 24px;
+  width: 220px;
   font-size: 1.2em;
   font-weight: bold;
   border: none;
@@ -96,21 +97,22 @@ header {
   cursor: pointer;
   z-index: 100;
   transition: background 0.2s;
+  display: block;
 }
 #whatsapp-btn {
   bottom: 24px;
   background: #25d366;
   color: #fff;
-  padding: 18px 32px;
+  padding: 18px 0;
 }
 #whatsapp-btn:hover {
   background: #128c7e;
 }
 #cart-btn {
-  bottom: 80px;
+  bottom: 84px;
   background: #e67e22;
   color: #fff;
-  padding: 14px 28px;
+  padding: 18px 0;
 }
 #cart-btn:hover {
   background: #ffb347;

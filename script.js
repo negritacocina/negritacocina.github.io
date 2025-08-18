@@ -74,7 +74,8 @@ window.onload = function() {
   document.getElementById('whatsapp-btn').onclick = sendWhatsApp;
 
   // Mostrar carrito
-  document.getElementById('cart-btn').onclick = function() {
+  const cartBtn = document.getElementById('cart-btn');
+  cartBtn.onclick = function() {
     const modal = document.getElementById('cart-modal');
     const list = document.getElementById('cart-list');
     list.innerHTML = '';
@@ -94,6 +95,29 @@ window.onload = function() {
     }
     modal.style.display = 'flex';
   };
+
+  // Mostrar u ocultar el botón de carrito según el estado
+  function updateCartBtnVisibility() {
+    let hasItems = false;
+    for (const qty of Object.values(cart)) {
+      if (qty > 0) {
+        hasItems = true;
+        break;
+      }
+    }
+    cartBtn.style.display = hasItems ? 'block' : 'none';
+  }
+
+  // Actualizar visibilidad al agregar al carrito
+  document.querySelectorAll('.add-cart').forEach(btn => {
+    btn.onclick = function() {
+      addToCart(btn.closest('.dish'));
+      updateCartBtnVisibility();
+    };
+  });
+
+  // Actualizar visibilidad al cargar la página
+  updateCartBtnVisibility();
 
   // Cerrar carrito
   document.getElementById('close-cart').onclick = function() {
