@@ -1,3 +1,29 @@
+.alert-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ffb347 0%, #e67e22 100%);
+  border-radius: 16px 16px 0 0;
+  transition: width 0.3s;
+  z-index: 2;
+}
+.cart-content {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  text-align: center;
+  cursor: default;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s cubic-bezier(.4,0,.2,1);
+  opacity: 1;
+  transform: translateY(0);
+  overflow: hidden;
+}
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #fff8f0;
@@ -154,6 +180,8 @@ header {
   transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s cubic-bezier(.4,0,.2,1);
   opacity: 1;
   transform: translateY(0);
+  position: relative;
+  overflow: hidden;
 }
 
 .cart-modal.closing .cart-content {

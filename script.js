@@ -1,9 +1,35 @@
+// Animación de cierre de modal (debe estar en el scope global)
+function closeModalWithAnimation(modalId, closeCallback) {
+  const modal = document.getElementById(modalId);
+  modal.classList.add('closing');
+  setTimeout(() => {
+    modal.classList.remove('closing');
+    modal.style.display = 'none';
+    if (closeCallback) closeCallback();
+  }, 300);
+}
+
 // Modal de notificación
 function showAlert(message) {
   const alertModal = document.getElementById('alert-modal');
   const alertMsg = document.getElementById('alert-message');
   alertMsg.textContent = message;
   alertModal.style.display = 'flex';
+  // Barra de progreso
+  const progressBar = document.getElementById('alert-progress');
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '100%';
+  setTimeout(() => {
+    progressBar.style.transition = 'width 3s linear';
+    progressBar.style.width = '0%';
+  }, 10);
+  // Cierre automático después de 3 segundos
+  clearTimeout(alertModal._autoClose);
+  alertModal._autoClose = setTimeout(() => {
+    if (alertModal.style.display === 'flex') {
+      closeModalWithAnimation('alert-modal');
+    }
+  }, 3000);
 }
 // Configuración inicial
 const dishes = [
@@ -67,6 +93,26 @@ function sendWhatsApp() {
 
 // Eventos
 window.onload = function() {
+  // Cierre automático del modal de carrito
+  function autoCloseCartModal() {
+    const cartModal = document.getElementById('cart-modal');
+    clearTimeout(cartModal._autoClose);
+    cartModal._autoClose = setTimeout(() => {
+      if (cartModal.style.display === 'flex') {
+        closeModalWithAnimation('cart-modal', function() {
+          for (const key in cart) {
+            if (!(key in cartBackup)) {
+              delete cart[key];
+            }
+          }
+          for (const key in cartBackup) {
+            cart[key] = cartBackup[key];
+          }
+          updateCartBtnVisibility();
+        });
+      }
+    }, 3000);
+  }
   // Cerrar modal de carrito al hacer clic/touch fuera del contenido
   function closeModalWithAnimation(modalId, closeCallback) {
     const modal = document.getElementById(modalId);
@@ -170,6 +216,7 @@ window.onload = function() {
       list.appendChild(li);
     }
     modal.style.display = 'flex';
+    autoCloseCartModal();
   };
 
   // Guardar cambios en el carrito
@@ -188,7 +235,7 @@ window.onload = function() {
     });
     showAlert('Cambios guardados en el carrito.');
     updateCartBtnVisibility();
-    document.getElementById('cart-modal').style.display = 'none';
+    closeModalWithAnimation('cart-modal');
   };
 
   // Eliminar plato del carrito
