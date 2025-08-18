@@ -1,3 +1,10 @@
+// Modal de notificación
+function showAlert(message) {
+  const alertModal = document.getElementById('alert-modal');
+  const alertMsg = document.getElementById('alert-message');
+  alertMsg.textContent = message;
+  alertModal.style.display = 'flex';
+}
 // Configuración inicial
 const dishes = [
   {
@@ -29,9 +36,9 @@ function addToCart(dishElem) {
   const quantity = parseInt(dishElem.querySelector('.quantity').textContent);
   if (quantity > 0) {
     cart[name] = quantity;
-    alert(`${name} agregado al carrito (${quantity})`);
+    showAlert(`${name} agregado al carrito (${quantity})`);
   } else {
-    alert('Selecciona al menos 1 unidad para agregar al carrito.');
+    showAlert('Selecciona al menos 1 unidad para agregar al carrito.');
   }
 }
 
@@ -47,7 +54,7 @@ function sendWhatsApp() {
     }
   }
   if (!hasItems) {
-    alert('El carrito está vacío. Agrega platos antes de hacer el pedido.');
+    showAlert('El carrito está vacío. Agrega platos antes de hacer el pedido.');
     return;
   }
   const url = `https://wa.me/${phone}?text=${message}`;
@@ -56,6 +63,10 @@ function sendWhatsApp() {
 
 // Eventos
 window.onload = function() {
+  // Cerrar modal de notificación
+  document.getElementById('close-alert').onclick = function() {
+    document.getElementById('alert-modal').style.display = 'none';
+  };
   document.querySelectorAll('.plus').forEach(btn => {
     btn.onclick = function() {
       updateQuantity(btn.closest('.dish'), 1);

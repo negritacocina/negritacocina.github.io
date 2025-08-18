@@ -3,7 +3,6 @@ body {
   background: #fff8f0;
   margin: 0;
   padding-bottom: 80px;
-}
 header {
   background: #ffb347;
   color: #fff;
@@ -130,6 +129,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 200;
+}
 }
 .cart-content {
   background: #fff;
