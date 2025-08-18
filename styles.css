@@ -78,6 +78,8 @@ header {
   cursor: pointer;
   margin-top: 8px;
   transition: background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 .add-cart:hover {
   background: #ffb347;
