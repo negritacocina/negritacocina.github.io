@@ -72,4 +72,31 @@ window.onload = function() {
     };
   });
   document.getElementById('whatsapp-btn').onclick = sendWhatsApp;
+
+  // Mostrar carrito
+  document.getElementById('cart-btn').onclick = function() {
+    const modal = document.getElementById('cart-modal');
+    const list = document.getElementById('cart-list');
+    list.innerHTML = '';
+    let hasItems = false;
+    for (const [name, qty] of Object.entries(cart)) {
+      if (qty > 0) {
+        const li = document.createElement('li');
+        li.textContent = `${name}: ${qty}`;
+        list.appendChild(li);
+        hasItems = true;
+      }
+    }
+    if (!hasItems) {
+      const li = document.createElement('li');
+      li.textContent = 'El carrito está vacío.';
+      list.appendChild(li);
+    }
+    modal.style.display = 'flex';
+  };
+
+  // Cerrar carrito
+  document.getElementById('close-cart').onclick = function() {
+    document.getElementById('cart-modal').style.display = 'none';
+  };
 };

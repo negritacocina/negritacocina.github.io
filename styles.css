@@ -84,24 +84,85 @@ header {
 .add-cart:hover {
   background: #ffb347;
 }
-#whatsapp-btn {
+/* Botones flotantes */
+#whatsapp-btn, #cart-btn {
   position: fixed;
   right: 24px;
-  bottom: 24px;
-  background: #25d366;
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  padding: 18px 32px;
   font-size: 1.2em;
   font-weight: bold;
+  border: none;
+  border-radius: 50px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   cursor: pointer;
   z-index: 100;
   transition: background 0.2s;
 }
+#whatsapp-btn {
+  bottom: 24px;
+  background: #25d366;
+  color: #fff;
+  padding: 18px 32px;
+}
 #whatsapp-btn:hover {
   background: #128c7e;
+}
+#cart-btn {
+  bottom: 80px;
+  background: #e67e22;
+  color: #fff;
+  padding: 14px 28px;
+}
+#cart-btn:hover {
+  background: #ffb347;
+}
+
+/* Modal carrito */
+.cart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.cart-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  text-align: center;
+}
+.cart-content h2 {
+  margin-top: 0;
+}
+.cart-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+.cart-content li {
+  margin-bottom: 8px;
+  font-size: 1.1em;
+}
+.cart-content button {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.cart-content button:hover {
+  background: #ffb347;
 }
 @media (max-width: 700px) {
   .menu-list {
