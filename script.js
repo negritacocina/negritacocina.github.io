@@ -181,10 +181,15 @@ window.onload = function() {
     for (const [name, qty] of Object.entries(cart)) {
       if (qty > 0) {
         const li = document.createElement('li');
+        li.className = 'cart-item';
         li.innerHTML = `
-          <span style="font-weight:bold;">${name}</span> 
-          <input type="number" min="1" value="${qty}" style="width:50px; text-align:center; margin:0 8px;" />
-          <button class="remove-item" data-name="${name}" style="margin-left:8px;">🗑️</button>
+          <span class="cart-item-name">${name}</span>
+          <div class="cart-quantity-controls">
+            <button class="cart-minus">-</button>
+            <input type="number" min="1" value="${qty}" class="cart-quantity-input" />
+            <button class="cart-plus">+</button>
+          </div>
+          <button class="remove-item" data-name="${name}">🗑️</button>
         `;
         list.appendChild(li);
         hasItems = true;
