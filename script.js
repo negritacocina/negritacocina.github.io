@@ -93,26 +93,6 @@ function sendWhatsApp() {
 
 // Eventos
 window.onload = function() {
-  // Cierre automático del modal de carrito
-  function autoCloseCartModal() {
-    const cartModal = document.getElementById('cart-modal');
-    clearTimeout(cartModal._autoClose);
-    cartModal._autoClose = setTimeout(() => {
-      if (cartModal.style.display === 'flex') {
-        closeModalWithAnimation('cart-modal', function() {
-          for (const key in cart) {
-            if (!(key in cartBackup)) {
-              delete cart[key];
-            }
-          }
-          for (const key in cartBackup) {
-            cart[key] = cartBackup[key];
-          }
-          updateCartBtnVisibility();
-        });
-      }
-    }, 3000);
-  }
   // Cerrar modal de carrito al hacer clic/touch fuera del contenido
   function closeModalWithAnimation(modalId, closeCallback) {
     const modal = document.getElementById(modalId);
@@ -216,7 +196,6 @@ window.onload = function() {
       list.appendChild(li);
     }
     modal.style.display = 'flex';
-    autoCloseCartModal();
   };
 
   // Guardar cambios en el carrito
