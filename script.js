@@ -47,7 +47,7 @@ const dishes = [
 
 const cart = {};
 
-// Actualiza la cantidad en la UI y en el carrito
+// Actualiza la cantidad en la UI y en el pedido
 function updateQuantity(dishElem, delta) {
   const name = dishElem.getAttribute('data-name');
   const quantitySpan = dishElem.querySelector('.quantity');
@@ -56,7 +56,7 @@ function updateQuantity(dishElem, delta) {
   quantitySpan.textContent = quantity;
 }
 
-// Agrega al carrito
+// Agrega al pedido
 function addToCart(dishElem) {
   const name = dishElem.getAttribute('data-name');
   const quantity = parseInt(dishElem.querySelector('.quantity').textContent);
@@ -66,9 +66,9 @@ function addToCart(dishElem) {
     } else {
       cart[name] = quantity;
     }
-    showAlert(`${name} agregado al carrito (+${quantity})`);
+    showAlert(`${name} agregado al pedido (+${quantity})`);
   } else {
-    showAlert('Selecciona al menos 1 unidad para agregar al carrito.');
+    showAlert('Selecciona al menos 1 unidad para agregar al pedido.');
   }
 }
 
@@ -84,7 +84,7 @@ function sendWhatsApp() {
     }
   }
   if (!hasItems) {
-    showAlert('El carrito está vacío. Agrega platos antes de hacer el pedido.');
+    showAlert('El pedido está vacío. Agrega platos antes de hacer el pedido.');
     return;
   }
   const url = `https://wa.me/${phone}?text=${message}`;
@@ -93,7 +93,7 @@ function sendWhatsApp() {
 
 // Eventos
 window.onload = function() {
-  // Cerrar modal de carrito al hacer clic/touch fuera del contenido
+  // Cerrar modal de pedido al hacer clic/touch fuera del contenido
   function closeModalWithAnimation(modalId, closeCallback) {
     const modal = document.getElementById(modalId);
     modal.classList.add('closing');
@@ -168,7 +168,7 @@ window.onload = function() {
   });
   document.getElementById('whatsapp-btn').onclick = sendWhatsApp;
 
-  // Mostrar carrito
+  // Mostrar pedido
   const cartBtn = document.getElementById('cart-btn');
   let cartBackup = {};
   cartBtn.onclick = function() {
@@ -197,13 +197,13 @@ window.onload = function() {
     }
     if (!hasItems) {
       const li = document.createElement('li');
-      li.textContent = 'El carrito está vacío.';
+      li.textContent = 'El pedido está vacío.';
       list.appendChild(li);
     }
     modal.style.display = 'flex';
   };
 
-  // Guardar cambios en el carrito
+  // Guardar cambios en el pedido
   document.getElementById('save-cart').onclick = function() {
     const list = document.getElementById('cart-list');
     const items = list.querySelectorAll('li');
@@ -217,12 +217,12 @@ window.onload = function() {
         cart[name] = value;
       }
     });
-    showAlert('Cambios guardados en el carrito.');
+    showAlert('Cambios guardados en el pedido.');
     updateCartBtnVisibility();
     closeModalWithAnimation('cart-modal');
   };
 
-  // Eliminar plato del carrito
+  // Eliminar plato del pedido
   document.getElementById('cart-list').onclick = function(e) {
     if (e.target.classList.contains('remove-item')) {
       const name = e.target.getAttribute('data-name');
@@ -232,7 +232,7 @@ window.onload = function() {
     }
   };
 
-  // Mostrar u ocultar el botón de carrito según el estado
+  // Mostrar u ocultar el botón de pedido según el estado
   function updateCartBtnVisibility() {
     let hasItems = false;
     for (const qty of Object.values(cart)) {
@@ -244,7 +244,7 @@ window.onload = function() {
     cartBtn.style.display = hasItems ? 'block' : 'none';
   }
 
-  // Actualizar visibilidad al agregar al carrito
+  // Actualizar visibilidad al agregar al pedido
   document.querySelectorAll('.add-cart').forEach(btn => {
     btn.onclick = function() {
       addToCart(btn.closest('.dish'));
@@ -255,7 +255,7 @@ window.onload = function() {
   // Actualizar visibilidad al cargar la página
   updateCartBtnVisibility();
 
-  // Cerrar carrito
+  // Cerrar pedido
   document.getElementById('close-cart').onclick = function() {
     closeModalWithAnimation('cart-modal', function() {
       for (const key in cart) {

@@ -1,4 +1,4 @@
-/* Carrito Modal - Título y controles modernos */
+/* Pedido Modal - Título y controles modernos */
 .cart-title {
   position: relative;
   text-align: center;
@@ -19,26 +19,30 @@
 }
 
 .cart-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 1rem;
-  gap: 0.5rem;
 }
 
 .cart-item-name {
   font-weight: bold;
   font-size: 1.1rem;
-  flex: 1;
+  justify-self: end;
+  margin-right: 0.5rem;
 }
 
 .cart-quantity-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: #f6f6f6;
   border-radius: 2rem;
   padding: 0.2rem 0.6rem;
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  min-width: 140px;
+  margin-top: 0 !important;
 }
 
 .cart-minus, .cart-plus {
@@ -75,7 +79,9 @@
   font-size: 1.2rem;
   cursor: pointer;
   transition: background 0.2s;
-  margin-left: 0.5rem;
+  margin-left: 0;
+  justify-self: start;
+  margin-top: 0 !important;
 }
 .remove-item:hover {
   background: #d35400;
@@ -247,7 +253,7 @@ header {
   background: #ffb347;
 }
 
-/* Modal carrito */
+/* Modal pedido */
 .cart-modal {
   position: fixed;
   top: 0;
@@ -309,7 +315,7 @@ header {
   padding: 8px 24px;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 12px;
+  margin-top: 0 !important;
   transition: background 0.2s;
 }
 .cart-content button:hover {
