@@ -12,38 +12,7 @@
     <p>Elegí tus platos favoritos y hacé tu pedido por WhatsApp</p>
   </header>
   <main>
-    <div class="menu-list">
-      <!-- Plato 1 -->
-      <div class="dish" data-name="Empanadas">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Empanadas">
-        <div class="dish-info">
-          <h2>Empanadas</h2>
-          <p>Empanadas caseras de carne y pollo, hechas con amor.</p>
-          <span class="price">$1200</span>
-          <div class="quantity-controls">
-            <button class="minus">-</button>
-            <span class="quantity">0</span>
-            <button class="plus">+</button>
-          </div>
-          <button class="add-cart">Agregar al pedido</button>
-        </div>
-      </div>
-      <!-- Plato 2 -->
-      <div class="dish" data-name="Tarta de Verdura">
-        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Tarta de Verdura">
-        <div class="dish-info">
-          <h2>Tarta de Verdura</h2>
-          <p>Tarta de acelga y queso, ideal para compartir.</p>
-          <span class="price">$1500</span>
-          <div class="quantity-controls">
-            <button class="minus">-</button>
-            <span class="quantity">0</span>
-            <button class="plus">+</button>
-          </div>
-          <button class="add-cart">Agregar al pedido</button>
-        </div>
-      </div>
-    </div>
+    <div id="dishes-container" class="dishes-grid"></div>
   </main>
   <button id="whatsapp-btn">Hacer pedido</button>
   <button id="cart-btn">Ver pedido</button>

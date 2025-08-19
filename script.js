@@ -32,18 +32,70 @@ function showAlert(message) {
   }, 3000);
 }
 // Configuración inicial
-const dishes = [
-  {
-    name: "Empanadas",
-    price: 1200,
+let dishes = [];
+
+// Cargar platos desde Google Sheets API
+async function loadDishesFromGoogleAPI(apiUrl) {
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  // data.values es un array de arrays, la primera fila son los encabezados
+  // La segunda fila suele ser ejemplo o aclaración, los datos reales desde la tercera
+  const rows = data.values.slice(2); // desde la tercera fila
+  dishes = rows.map(cols => ({
+    image: cols[0],
+    name: cols[1],
+    description: cols[2],
+    price: parseFloat(cols[3]),
+    stock: parseInt(cols[4]),
+    public: (cols[5] || '').toLowerCase().includes('si'),
     quantity: 0
-  },
-  {
-    name: "Tarta de Verdura",
-    price: 1500,
-    quantity: 0
-  }
-];
+  })).filter(dish => dish.public);
+  renderDishes();
+}
+
+// Renderizar platos en la página
+function renderDishes() {
+  const container = document.getElementById('dishes-container');
+  if (!container) return;
+  container.innerHTML = '';
+  dishes.forEach(dish => {
+    const dishElem = document.createElement('div');
+    dishElem.className = 'dish';
+    dishElem.setAttribute('data-name', dish.name);
+    dishElem.innerHTML = `
+      <img src="${dish.image}" alt="${dish.name}">
+      <div class="dish-info">
+        <h2>${dish.name}</h2>
+        <p>${dish.description}</p>
+        <span class="price">$${dish.price}</span>
+        <div class="quantity-controls">
+          <button class="minus">-</button>
+          <span class="quantity">0</span>
+          <button class="plus">+</button>
+        </div>
+        <button class="add-cart">Agregar al pedido</button>
+      </div>
+    `;
+    container.appendChild(dishElem);
+  });
+  // Reasignar eventos
+  document.querySelectorAll('.plus').forEach(btn => {
+    btn.onclick = function() {
+      updateQuantity(btn.closest('.dish'), 1);
+    };
+  });
+  document.querySelectorAll('.minus').forEach(btn => {
+    btn.onclick = function() {
+      updateQuantity(btn.closest('.dish'), -1);
+    };
+  });
+  document.querySelectorAll('.add-cart').forEach(btn => {
+    btn.onclick = function() {
+      addToCart(btn.closest('.dish'));
+      updateCartBtnVisibility();
+    };
+  });
+}
 
 const cart = {};
 
@@ -171,6 +223,10 @@ window.onload = function() {
   // Mostrar pedido
   const cartBtn = document.getElementById('cart-btn');
   let cartBackup = {};
+
+  // Cargar platos desde Google Sheets API
+  const apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/1cd014IXW4wJ1oiW8QltSGr0bJbpG-8NxNNM3qerVzac/values/negritabbdd?key=AIzaSyACqVLXtVuYzyXZVSD4BGvZ78oRuNOwd4w';
+  loadDishesFromGoogleAPI(apiUrl);
   cartBtn.onclick = function() {
     // Guardar copia del estado original
     cartBackup = JSON.parse(JSON.stringify(cart));

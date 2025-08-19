@@ -139,6 +139,118 @@ body {
   margin: 0;
   padding-bottom: 80px;
 }
+
+/* Grid de platos dinámicos */
+.dishes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px auto;
+  max-width: 900px;
+}
+
+.dish {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.dish:hover {
+  box-shadow: 0 4px 24px rgba(230,126,34,0.15);
+}
+.dish img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.dish-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.dish-info h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+  color: #e67e22;
+}
+.dish-info p {
+  font-size: 1rem;
+  color: #444;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+.price {
+  font-weight: bold;
+  color: #e67e22;
+  font-size: 1.2em;
+  text-align: center;
+  width: 100%;
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.quantity-controls button {
+  background: #ffb347;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.quantity-controls button:hover {
+  background: #e67e22;
+}
+.quantity {
+  font-size: 1.1em;
+  min-width: 32px;
+  text-align: center;
+  color: #333;
+}
+.add-cart {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 0;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.add-cart:hover {
+  background: #ffb347;
+}
+@media (max-width: 700px) {
+  .dishes-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .dish {
+    width: 95vw;
+    max-width: 340px;
+  }
+}
+
 header {
   background: #ffb347;
   color: #fff;
