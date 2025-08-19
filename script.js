@@ -74,7 +74,7 @@ function addToCart(dishElem) {
 
 // Botón WhatsApp
 function sendWhatsApp() {
-  const phone = '5491123456789'; // Cambia por tu número real
+  const phone = '5492241506823';
   let message = 'Hola negrita, quiero realizar el siguiente pedido:%0A';
   let hasItems = false;
   for (const [name, qty] of Object.entries(cart)) {
