@@ -1,4 +1,80 @@
+/* Cart modal item styles moved from inline to CSS */
+.cart-item-name {
+  font-weight: bold;
+  color: #e67e22;
+  margin-right: 16px;
+}
+.cart-quantity-number {
+  font-size: 1.2em;
+  margin: 0 8px;
+}
+.remove-item {
+  margin-left: 16px;
+}
 /* Pedido Modal - Título y controles modernos */
+/* Fila del modal de pedido */
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px 0 16px 0;
+}
+.cart-row .cart-item-name {
+  min-width: 120px;
+  text-align: right;
+}
+.cart-row .cart-quantity-number {
+  min-width: 32px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+.cart-row .cart-minus, .cart-row .cart-plus {
+  background: #ffb347;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.cart-row .cart-minus:hover, .cart-row .cart-plus:hover {
+  background: #e67e22;
+}
+.cart-row .remove-item {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cart-row .remove-item:hover {
+  background: #ffb347;
+}
+/* Barra de progreso para alertas */
+.alert-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: #e67e22;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  transition: width 3s linear;
+  z-index: 10;
+}
 .cart-title {
   position: relative;
   text-align: center;

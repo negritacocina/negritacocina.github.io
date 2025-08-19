@@ -1,3 +1,16 @@
+// Mostrar u ocultar el botón de pedido según el estado
+function updateCartBtnVisibility() {
+  const cartBtn = document.getElementById('cart-btn');
+  let hasItems = false;
+  for (const qty of Object.values(cart)) {
+    if (qty > 0) {
+      hasItems = true;
+      break;
+    }
+  }
+  cartBtn.style.display = hasItems ? 'block' : 'none';
+}
+
 // Animación de cierre de modal (debe estar en el scope global)
 function closeModalWithAnimation(modalId, closeCallback) {
   const modal = document.getElementById(modalId);
@@ -15,8 +28,14 @@ function showAlert(message) {
   const alertMsg = document.getElementById('alert-message');
   alertMsg.textContent = message;
   alertModal.style.display = 'flex';
-  // Barra de progreso
-  const progressBar = document.getElementById('alert-progress');
+  // Barra de progreso visual
+  let progressBar = document.getElementById('alert-progress');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.id = 'alert-progress';
+    progressBar.className = 'alert-progress';
+    alertModal.querySelector('.cart-content').prepend(progressBar);
+  }
   progressBar.style.transition = 'none';
   progressBar.style.width = '100%';
   setTimeout(() => {
@@ -80,19 +99,18 @@ function renderDishes() {
   });
   // Reasignar eventos
   document.querySelectorAll('.plus').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       updateQuantity(btn.closest('.dish'), 1);
     };
   });
   document.querySelectorAll('.minus').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       updateQuantity(btn.closest('.dish'), -1);
     };
   });
   document.querySelectorAll('.add-cart').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       addToCart(btn.closest('.dish'));
-      updateCartBtnVisibility();
     };
   });
 }
@@ -119,6 +137,7 @@ function addToCart(dishElem) {
       cart[name] = quantity;
     }
     showAlert(`${name} agregado al pedido (+${quantity})`);
+    updateCartBtnVisibility();
   } else {
     showAlert('Selecciona al menos 1 unidad para agregar al pedido.');
   }
@@ -144,7 +163,7 @@ function sendWhatsApp() {
 }
 
 // Eventos
-window.onload = function() {
+window.onload = function () {
   // Cerrar modal de pedido al hacer clic/touch fuera del contenido
   function closeModalWithAnimation(modalId, closeCallback) {
     const modal = document.getElementById(modalId);
@@ -156,9 +175,9 @@ window.onload = function() {
     }, 300);
   }
 
-  document.getElementById('cart-modal').addEventListener('mousedown', function(e) {
+  document.getElementById('cart-modal').addEventListener('mousedown', function (e) {
     if (e.target === this) {
-      closeModalWithAnimation('cart-modal', function() {
+      closeModalWithAnimation('cart-modal', function () {
         // Restaurar el estado original si no se guardó
         for (const key in cart) {
           if (!(key in cartBackup)) {
@@ -172,9 +191,9 @@ window.onload = function() {
       });
     }
   });
-  document.getElementById('cart-modal').addEventListener('touchstart', function(e) {
+  document.getElementById('cart-modal').addEventListener('touchstart', function (e) {
     if (e.target === this) {
-      closeModalWithAnimation('cart-modal', function() {
+      closeModalWithAnimation('cart-modal', function () {
         for (const key in cart) {
           if (!(key in cartBackup)) {
             delete cart[key];
@@ -189,32 +208,32 @@ window.onload = function() {
   });
 
   // Cerrar modal de alerta al hacer clic/touch fuera del contenido
-  document.getElementById('alert-modal').addEventListener('mousedown', function(e) {
+  document.getElementById('alert-modal').addEventListener('mousedown', function (e) {
     if (e.target === this) {
       closeModalWithAnimation('alert-modal');
     }
   });
-  document.getElementById('alert-modal').addEventListener('touchstart', function(e) {
+  document.getElementById('alert-modal').addEventListener('touchstart', function (e) {
     if (e.target === this) {
       closeModalWithAnimation('alert-modal');
     }
   });
   // Cerrar modal de notificación
-  document.getElementById('close-alert').onclick = function() {
+  document.getElementById('close-alert').onclick = function () {
     closeModalWithAnimation('alert-modal');
   };
   document.querySelectorAll('.plus').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       updateQuantity(btn.closest('.dish'), 1);
     };
   });
   document.querySelectorAll('.minus').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       updateQuantity(btn.closest('.dish'), -1);
     };
   });
   document.querySelectorAll('.add-cart').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       addToCart(btn.closest('.dish'));
     };
   });
@@ -227,7 +246,7 @@ window.onload = function() {
   // Cargar platos desde Google Sheets API
   const apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/1cd014IXW4wJ1oiW8QltSGr0bJbpG-8NxNNM3qerVzac/values/negritabbdd?key=AIzaSyACqVLXtVuYzyXZVSD4BGvZ78oRuNOwd4w';
   loadDishesFromGoogleAPI(apiUrl);
-  cartBtn.onclick = function() {
+  cartBtn.onclick = function () {
     // Guardar copia del estado original
     cartBackup = JSON.parse(JSON.stringify(cart));
     const modal = document.getElementById('cart-modal');
@@ -239,13 +258,17 @@ window.onload = function() {
         const li = document.createElement('li');
         li.className = 'cart-item';
         li.innerHTML = `
-          <span class="cart-item-name">${name}</span>
-          <div class="cart-quantity-controls">
-            <button class="cart-minus">-</button>
-            <input type="number" min="1" value="${qty}" class="cart-quantity-input" readonly />
-            <button class="cart-plus">+</button>
+          <div class="cart-row">
+            <span class="cart-item-name">${name}</span>
+            <button class="cart-minus" aria-label="Restar">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="9" width="12" height="2" rx="1" fill="white"/></svg>
+            </button>
+            <span class="cart-quantity-number">${qty}</span>
+            <button class="cart-plus" aria-label="Sumar">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="4" width="2" height="12" rx="1" fill="white"/><rect x="4" y="9" width="12" height="2" rx="1" fill="white"/></svg>
+            </button>
+            <button class="remove-item" data-name="${name}">🗑️</button>
           </div>
-          <button class="remove-item" data-name="${name}">🗑️</button>
         `;
         list.appendChild(li);
         hasItems = true;
@@ -260,7 +283,7 @@ window.onload = function() {
 
     // Agregar eventos a los botones + y - en el modal
     list.querySelectorAll('.cart-plus').forEach(btn => {
-      btn.onclick = function() {
+      btn.onclick = function () {
         const input = btn.parentElement.querySelector('.cart-quantity-input');
         const name = btn.closest('li').querySelector('.cart-item-name').textContent;
         let value = parseInt(input.value);
@@ -270,7 +293,7 @@ window.onload = function() {
       };
     });
     list.querySelectorAll('.cart-minus').forEach(btn => {
-      btn.onclick = function() {
+      btn.onclick = function () {
         const input = btn.parentElement.querySelector('.cart-quantity-input');
         const name = btn.closest('li').querySelector('.cart-item-name').textContent;
         let value = parseInt(input.value);
@@ -282,7 +305,7 @@ window.onload = function() {
   };
 
   // Guardar cambios en el pedido
-  document.getElementById('save-cart').onclick = function() {
+  document.getElementById('save-cart').onclick = function () {
     const list = document.getElementById('cart-list');
     const items = list.querySelectorAll('li');
     items.forEach(li => {
@@ -301,7 +324,7 @@ window.onload = function() {
   };
 
   // Eliminar plato del pedido
-  document.getElementById('cart-list').onclick = function(e) {
+  document.getElementById('cart-list').onclick = function (e) {
     if (e.target.classList.contains('remove-item')) {
       const name = e.target.getAttribute('data-name');
       delete cart[name];
@@ -310,23 +333,10 @@ window.onload = function() {
     }
   };
 
-  // Mostrar u ocultar el botón de pedido según el estado
-  function updateCartBtnVisibility() {
-    let hasItems = false;
-    for (const qty of Object.values(cart)) {
-      if (qty > 0) {
-        hasItems = true;
-        break;
-      }
-    }
-    cartBtn.style.display = hasItems ? 'block' : 'none';
-  }
-
   // Actualizar visibilidad al agregar al pedido
   document.querySelectorAll('.add-cart').forEach(btn => {
-    btn.onclick = function() {
+    btn.onclick = function () {
       addToCart(btn.closest('.dish'));
-      updateCartBtnVisibility();
     };
   });
 
@@ -334,8 +344,8 @@ window.onload = function() {
   updateCartBtnVisibility();
 
   // Cerrar pedido
-  document.getElementById('close-cart').onclick = function() {
-    closeModalWithAnimation('cart-modal', function() {
+  document.getElementById('close-cart').onclick = function () {
+    closeModalWithAnimation('cart-modal', function () {
       for (const key in cart) {
         if (!(key in cartBackup)) {
           delete cart[key];
