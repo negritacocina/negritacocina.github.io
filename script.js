@@ -186,7 +186,7 @@ window.onload = function() {
           <span class="cart-item-name">${name}</span>
           <div class="cart-quantity-controls">
             <button class="cart-minus">-</button>
-            <input type="number" min="1" value="${qty}" class="cart-quantity-input" />
+            <input type="number" min="1" value="${qty}" class="cart-quantity-input" readonly />
             <button class="cart-plus">+</button>
           </div>
           <button class="remove-item" data-name="${name}">🗑️</button>
@@ -201,6 +201,28 @@ window.onload = function() {
       list.appendChild(li);
     }
     modal.style.display = 'flex';
+
+    // Agregar eventos a los botones + y - en el modal
+    list.querySelectorAll('.cart-plus').forEach(btn => {
+      btn.onclick = function() {
+        const input = btn.parentElement.querySelector('.cart-quantity-input');
+        const name = btn.closest('li').querySelector('.cart-item-name').textContent;
+        let value = parseInt(input.value);
+        value = value + 1;
+        input.value = value;
+        cart[name] = value;
+      };
+    });
+    list.querySelectorAll('.cart-minus').forEach(btn => {
+      btn.onclick = function() {
+        const input = btn.parentElement.querySelector('.cart-quantity-input');
+        const name = btn.closest('li').querySelector('.cart-item-name').textContent;
+        let value = parseInt(input.value);
+        value = Math.max(1, value - 1);
+        input.value = value;
+        cart[name] = value;
+      };
+    });
   };
 
   // Guardar cambios en el pedido
