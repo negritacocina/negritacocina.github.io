@@ -1,3 +1,113 @@
+/* --- Modal Pedido Elegante --- */
+.cart-content {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 32px 24px;
+  min-width: 320px;
+  max-width: 95vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cart-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #e67e22;
+  margin-bottom: 2rem;
+}
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f3e6d6;
+  padding: 12px 0;
+}
+.cart-item-name {
+  flex: 2;
+  color: #e67e22;
+  font-weight: bold;
+  text-align: left;
+}
+.cart-controls {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.cart-quantity-number {
+  font-size: 1.2em;
+  min-width: 32px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+}
+.cart-minus, .cart-plus {
+  background: #ffb347;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.cart-minus:hover, .cart-plus:hover {
+  background: #e67e22;
+}
+.remove-item {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 16px;
+}
+.remove-item:hover {
+  background: #ffb347;
+}
+.cart-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+.save-cart {
+  background: #e67e22;
+  color: #fff;
+}
+.make-order {
+  background: #25d366 !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 2px 8px rgba(37,211,102,0.12);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: background 0.2s;
+}
+.make-order:hover {
+  background: #128c7e !important;
+}
+
+.close-cart {
+  background: #ccc;
+  color: #333;
+}
 /* Cart modal item styles moved from inline to CSS */
 .cart-item-name {
   font-weight: bold;
@@ -44,7 +154,15 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  box-shadow: 0 1px 4px rgba(230,126,34,0.10);
 }
+
+.cart-minus svg, .cart-plus svg {
+  display: block;
+  margin: auto;
+  fill: #fff;
+}
+
 
 .cart-row .cart-minus:hover, .cart-row .cart-plus:hover {
   background: #e67e22;
@@ -55,12 +173,12 @@
   border: none;
   border-radius: 8px;
   padding: 6px 12px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.cart-row .remove-item:hover {
-  background: #ffb347;
+  font-size: 1.2em;
+  min-width: 32px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  margin: 0 4px;
 }
 /* Barra de progreso para alertas */
 .alert-progress {

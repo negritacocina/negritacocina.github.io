@@ -250,25 +250,27 @@ window.onload = function () {
     // Guardar copia del estado original
     cartBackup = JSON.parse(JSON.stringify(cart));
     const modal = document.getElementById('cart-modal');
+    const content = modal.querySelector('.cart-content');
     const list = document.getElementById('cart-list');
     list.innerHTML = '';
     let hasItems = false;
+    let changesPending = false;
     for (const [name, qty] of Object.entries(cart)) {
       if (qty > 0) {
         const li = document.createElement('li');
         li.className = 'cart-item';
         li.innerHTML = `
-          <div class="cart-row">
-            <span class="cart-item-name">${name}</span>
+          <span class="cart-item-name">${name}</span>
+          <div class="cart-controls">
             <button class="cart-minus" aria-label="Restar">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="9" width="12" height="2" rx="1" fill="white"/></svg>
+              -
             </button>
             <span class="cart-quantity-number">${qty}</span>
             <button class="cart-plus" aria-label="Sumar">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="4" width="2" height="12" rx="1" fill="white"/><rect x="4" y="9" width="12" height="2" rx="1" fill="white"/></svg>
+              +
             </button>
-            <button class="remove-item" data-name="${name}">🗑️</button>
           </div>
+          <button class="remove-item" data-name="${name}" aria-label="Eliminar">🗑️</button>
         `;
         list.appendChild(li);
         hasItems = true;
@@ -281,27 +283,83 @@ window.onload = function () {
     }
     modal.style.display = 'flex';
 
-    // Agregar eventos a los botones + y - en el modal
+    // Pie de acciones
+    let actions = content.querySelector('.cart-actions');
+    if (!actions) {
+      actions = document.createElement('div');
+      actions.className = 'cart-actions';
+      content.appendChild(actions);
+    }
+    actions.innerHTML = `
+      <button class="close-cart">Cerrar</button>
+      <button class="save-cart" style="display:none;">Guardar cambios</button>
+      <button class="make-order">Hacer pedido</button>
+    `;
+
+    // Eventos de cantidad y eliminar
     list.querySelectorAll('.cart-plus').forEach(btn => {
       btn.onclick = function () {
-        const input = btn.parentElement.querySelector('.cart-quantity-input');
-        const name = btn.closest('li').querySelector('.cart-item-name').textContent;
-        let value = parseInt(input.value);
+        const row = btn.closest('li');
+        const name = row.querySelector('.cart-item-name').textContent;
+        let value = parseInt(row.querySelector('.cart-quantity-number').textContent);
         value = value + 1;
-        input.value = value;
+        row.querySelector('.cart-quantity-number').textContent = value;
         cart[name] = value;
+        changesPending = true;
+        actions.querySelector('.save-cart').style.display = 'inline-block';
+        actions.querySelector('.make-order').style.display = 'none';
       };
     });
     list.querySelectorAll('.cart-minus').forEach(btn => {
       btn.onclick = function () {
-        const input = btn.parentElement.querySelector('.cart-quantity-input');
-        const name = btn.closest('li').querySelector('.cart-item-name').textContent;
-        let value = parseInt(input.value);
+        const row = btn.closest('li');
+        const name = row.querySelector('.cart-item-name').textContent;
+        let value = parseInt(row.querySelector('.cart-quantity-number').textContent);
         value = Math.max(1, value - 1);
-        input.value = value;
+        row.querySelector('.cart-quantity-number').textContent = value;
         cart[name] = value;
+        changesPending = true;
+        actions.querySelector('.save-cart').style.display = 'inline-block';
+        actions.querySelector('.make-order').style.display = 'none';
       };
     });
+    list.querySelectorAll('.remove-item').forEach(btn => {
+      btn.onclick = function () {
+        const name = btn.getAttribute('data-name');
+        delete cart[name];
+        btn.closest('li').remove();
+        changesPending = true;
+        actions.querySelector('.save-cart').style.display = 'inline-block';
+        actions.querySelector('.make-order').style.display = 'none';
+        updateCartBtnVisibility();
+      };
+    });
+
+    // Botón guardar cambios
+    actions.querySelector('.save-cart').onclick = function () {
+      showAlert('Cambios guardados en el pedido.');
+      changesPending = false;
+      actions.querySelector('.save-cart').style.display = 'none';
+      actions.querySelector('.make-order').style.display = 'inline-block';
+      updateCartBtnVisibility();
+      closeModalWithAnimation('cart-modal');
+    };
+    // Botón cerrar
+    actions.querySelector('.close-cart').onclick = function () {
+      closeModalWithAnimation('cart-modal', function () {
+        for (const key in cart) {
+          if (!(key in cartBackup)) {
+            delete cart[key];
+          }
+        }
+        for (const key in cartBackup) {
+          cart[key] = cartBackup[key];
+        }
+        updateCartBtnVisibility();
+      });
+    };
+    // Botón hacer pedido
+    actions.querySelector('.make-order').onclick = sendWhatsApp;
   };
 
   // Guardar cambios en el pedido
