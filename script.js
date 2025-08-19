@@ -237,7 +237,7 @@ window.onload = function () {
       addToCart(btn.closest('.dish'));
     };
   });
-  document.getElementById('whatsapp-btn').onclick = sendWhatsApp;
+  // document.getElementById('whatsapp-btn').onclick = sendWhatsApp;
 
   // Mostrar pedido
   const cartBtn = document.getElementById('cart-btn');
