@@ -67,7 +67,7 @@ function renderDishes() {
       <div class="dish-info">
         <h2>${dish.name}</h2>
         <p>${dish.description}</p>
-        <span class="price">$${dish.price}</span>
+        ${!isNaN(dish.price) ? `<span class="price">$${dish.price}</span>` : '<span class="price" style="visibility:hidden">&nbsp;</span>'}
         <div class="quantity-controls">
           <button class="minus">-</button>
           <span class="quantity">0</span>
