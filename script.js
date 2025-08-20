@@ -65,8 +65,7 @@ async function loadDishesFromGoogleAPI(apiUrl) {
     name: cols[1],
     description: cols[2],
     price: parseFloat(cols[3]),
-    stock: parseInt(cols[4]),
-    public: (cols[5] || '').toLowerCase().includes('si'),
+    public: (cols[4] || '').toLowerCase().includes('si'),
     quantity: 0
   })).filter(dish => dish.public);
   renderDishes();
@@ -78,11 +77,17 @@ function renderDishes() {
   if (!container) return;
   container.innerHTML = '';
   dishes.forEach(dish => {
+    let imageUrl = dish.image;
+    // Detectar y convertir URL de Google Drive
+    const driveMatch = imageUrl.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    if (driveMatch) {
+      imageUrl = `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+    }
     const dishElem = document.createElement('div');
     dishElem.className = 'dish';
     dishElem.setAttribute('data-name', dish.name);
     dishElem.innerHTML = `
-      <img src="${dish.image}" alt="${dish.name}">
+      <img src="${imageUrl}" alt="${dish.name}">
       <div class="dish-info">
         <h2>${dish.name}</h2>
         <p>${dish.description}</p>
