@@ -1,8 +1,23 @@
+/* colores  */
+:root {
+  --color-primary: #316d54;
+  --color-secondary: #447967;
+  --color-accent: #25d366;
+  --color-accent-hover: #128c7e;
+  --color-background: #fff;
+  --color-background-light: #709f8f;
+  --color-text: #333;
+  --color-text-light: #444;
+  --color-border: #f3e6d6;
+  --color-shadow: rgba(0, 0, 0, 0.18);
+  --color-shadow-hover: rgba(230, 126, 34, 0.15);
+}
+
 /* --- Modal Pedido Elegante --- */
 .cart-content {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px var(--color-shadow);
   padding: 32px 24px;
   min-width: 320px;
   max-width: 95vw;
@@ -13,7 +28,7 @@
 .cart-title {
   text-align: center;
   font-size: 2.2rem;
-  color: #e67e22;
+  color: var(--color-primary);
   margin-bottom: 2rem;
 }
 .cart-list {
@@ -25,12 +40,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #f3e6d6;
+  border-bottom: 1px solid var(--color-border);
   padding: 12px 0;
 }
 .cart-item-name {
   flex: 2;
-  color: #e67e22;
+  color: var(--color-primary);
   font-weight: bold;
   text-align: left;
 }
@@ -46,12 +61,12 @@
   font-size: 1.2em;
   min-width: 32px;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
   font-weight: bold;
 }
 .cart-minus, .cart-plus {
-  background: #ffb347;
-  color: #fff;
+  background: var(--color-secondary);
+  color: var(--color-background);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -65,11 +80,11 @@
   padding: 0;
 }
 .cart-minus:hover, .cart-plus:hover {
-  background: #e67e22;
+  background: var(--color-primary);
 }
 .remove-item {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
   border: none;
   border-radius: 8px;
   padding: 6px 12px;
@@ -79,7 +94,7 @@
   margin-left: 16px;
 }
 .remove-item:hover {
-  background: #ffb347;
+  background: var(--color-secondary);
 }
 .cart-actions {
   display: flex;
@@ -88,30 +103,30 @@
   margin-top: 24px;
 }
 .save-cart {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
 }
 .make-order {
-  background: #25d366 !important;
-  color: #fff !important;
+  background: var(--color-accent) !important;
+  color: var(--color-background) !important;
   border: none;
-  box-shadow: 0 2px 8px rgba(37,211,102,0.12);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.12);
   font-weight: bold;
   letter-spacing: 0.5px;
   transition: background 0.2s;
 }
 .make-order:hover {
-  background: #128c7e !important;
+  background: var(--color-accent-hover) !important;
 }
 
 .close-cart {
   background: #ccc;
-  color: #333;
+  color: var(--color-text);
 }
 /* Cart modal item styles moved from inline to CSS */
 .cart-item-name {
   font-weight: bold;
-  color: #e67e22;
+  color: var(--color-primary);
   margin-right: 16px;
 }
 .cart-quantity-number {
@@ -138,11 +153,11 @@
   min-width: 32px;
   text-align: center;
   font-weight: bold;
-  color: #333;
+  color: var(--color-text);
 }
 .cart-row .cart-minus, .cart-row .cart-plus {
-  background: #ffb347;
-  color: #fff;
+  background: var(--color-secondary);
+  color: var(--color-background);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -165,18 +180,18 @@
 
 
 .cart-row .cart-minus:hover, .cart-row .cart-plus:hover {
-  background: #e67e22;
+  background: var(--color-primary);
 }
 .cart-row .remove-item {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
   border: none;
   border-radius: 8px;
   padding: 6px 12px;
   font-size: 1.2em;
   min-width: 32px;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
   font-weight: bold;
   margin: 0 4px;
 }
@@ -187,7 +202,7 @@
   left: 0;
   height: 6px;
   width: 100%;
-  background: #e67e22;
+  background: var(--color-primary);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   transition: width 3s linear;
@@ -198,7 +213,7 @@
   text-align: center;
   font-size: 2.2rem;
   font-weight: bold;
-  color: #e67e22 !important;
+  color: var(--color-primary) !important;
   margin: 0 0 2rem 0;
   padding: 0;
   letter-spacing: 1px;
@@ -208,7 +223,7 @@
 
 .cart-content {
   position: relative;
-  background: #fff;
+  background: var(--color-background);
   border-radius: 16px;
   padding: 32px 24px 32px 24px;
   min-width: 300px;
@@ -223,7 +238,7 @@
 }
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #fff8f0;
+  background: var(--color-background-light);
   margin: 0;
   padding-bottom: 80px;
 }
@@ -240,7 +255,7 @@ body {
 }
 
 .dish {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   overflow: hidden;
@@ -273,11 +288,11 @@ body {
   font-size: 1.3rem;
   font-weight: bold;
   margin: 0 0 4px 0;
-  color: #e67e22;
+  color: var(--color-primary);
 }
 .dish-info p {
   font-size: 1rem;
-  color: #444;
+  color: var(--color-text-light);
   margin: 0 0 8px 0;
   text-align: center;
   min-height: 48px;
@@ -290,7 +305,7 @@ body {
 }
 .price {
   font-weight: bold;
-  color: #e67e22;
+  color: var(--color-primary);
   font-size: 1.2em;
   text-align: center;
   width: 100%;
@@ -304,8 +319,8 @@ body {
   margin: 8px 0;
 }
 .quantity-controls button {
-  background: #ffb347;
-  color: #fff;
+  background: var(--color-secondary);
+  color: var(--color-background);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -315,17 +330,17 @@ body {
   transition: background 0.2s;
 }
 .quantity-controls button:hover {
-  background: #e67e22;
+  background: var(--color-primary);
 }
 .quantity {
   font-size: 1.1em;
   min-width: 32px;
   text-align: center;
-  color: #333;
+  color: var(--color-text);
 }
 .add-cart {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
   border: none;
   border-radius: 8px;
   padding: 8px 0;
@@ -337,7 +352,7 @@ body {
   box-sizing: border-box;
 }
 .add-cart:hover {
-  background: #ffb347;
+  background: var(--color-secondary);
 }
 @media (max-width: 700px) {
   .dishes-grid {
@@ -352,7 +367,7 @@ body {
 }
 
 header {
-  background: #ffb347;
+  background: var(--color-secondary);
   color: #fff;
   padding: 24px 0 12px 0;
   text-align: center;
@@ -367,7 +382,7 @@ header {
   max-width: 900px;
 }
 .dish {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   overflow: hidden;
@@ -389,7 +404,7 @@ header {
 }
 .price {
   font-weight: bold;
-  color: #e67e22;
+  color: var(--color-primary);
   font-size: 1.2em;
   text-align: center;
   width: 100%;
@@ -402,8 +417,8 @@ header {
   margin: 8px 0;
 }
 .quantity-controls button {
-  background: #ffb347;
-  color: #fff;
+  background: var(--color-secondary);
+  color: var(--color-background);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -413,11 +428,11 @@ header {
   transition: background 0.2s;
 }
 .quantity-controls button:hover {
-  background: #e67e22;
+  background: var(--color-primary);
 }
 .add-cart {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
   border: none;
   border-radius: 8px;
   padding: 8px 0;
@@ -429,7 +444,7 @@ header {
   box-sizing: border-box;
 }
 .add-cart:hover {
-  background: #ffb347;
+  background: var(--color-secondary);
 }
 /* Botones flotantes */
 #whatsapp-btn, #cart-btn {
@@ -448,21 +463,21 @@ header {
 }
 #whatsapp-btn {
   bottom: 24px;
-  background: #25d366;
+  background: var(--color-accent);
   color: #fff;
   padding: 18px 0;
 }
 #whatsapp-btn:hover {
-  background: #128c7e;
+  background: var(--color-accent-hover);
 }
 #cart-btn {
   bottom: 84px;
-  background: #e67e22;
+  background: var(--color-primary);
   color: #fff;
   padding: 18px 0;
 }
 #cart-btn:hover {
-  background: #ffb347;
+  background: var(--color-secondary);
 }
 
 /* Modal pedido */
@@ -490,7 +505,7 @@ header {
 }
 
 .cart-content {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 16px;
   padding: 32px 24px;
   min-width: 300px;
@@ -520,8 +535,8 @@ header {
   font-size: 1.1em;
 }
 .cart-content button {
-  background: #e67e22;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-background);
   border: none;
   border-radius: 8px;
   padding: 8px 24px;
@@ -531,7 +546,7 @@ header {
   transition: background 0.2s;
 }
 .cart-content button:hover {
-  background: #ffb347;
+  background: var(--color-secondary);
 }
 @media (max-width: 700px) {
   .menu-list {
